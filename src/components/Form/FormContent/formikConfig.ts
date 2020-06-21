@@ -42,13 +42,14 @@ export const onSubmit = (
 ) => console.log({ values, actions });
 
 export const validationSchema = Yup.object({
-  firstName: Yup.string()
-    .max(15, "Must be 15 characters or less")
-    .required("Required"),
-  lastName: Yup.string()
-    .max(20, "Must be 20 characters or less")
-    .required("Required"),
-  email: Yup.string().email("Invalid email address").required("Required"),
-  password: Yup.string().min(8, "Password too Short").required("Required"),
-  confirm: Yup.string().min(8, "Password too Short").required("Required")
+  firstName: Yup.string().min(3).max(120).required().label("First Name"),
+  lastName: Yup.string().min(3).max(120).required().label("Last Name"),
+  email: Yup.string().email().required().label("Email"),
+  password: Yup.string().min(8).required().label("Password"),
+  confirm: Yup.string().min(8).required().label("Confirm Password"),
+  brandName: Yup.string().min(3).required().label("Business Name"),
+  businessEmail: Yup.string().email().required().label("Business Email"),
+  website: Yup.string().required().label("Business Website"),
+  location: Yup.string().required().label("Business Location"),
+  description: Yup.string().min(120).max(1024).label("Description")
 });

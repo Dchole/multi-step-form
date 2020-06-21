@@ -1,11 +1,7 @@
 import React from "react";
 
 const Confirmation = () => {
-  return (
-    <div>
-      <h1>Confirm</h1>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Confirmation;

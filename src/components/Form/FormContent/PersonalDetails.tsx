@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
 import PersonIcon from "@material-ui/icons/Person";
 import EmailIcon from "@material-ui/icons/Email";
 import LockIcon from "@material-ui/icons/Lock";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import { TextField } from "formik-material-ui";
 import { Field } from "formik";
 
@@ -16,6 +19,7 @@ interface IPersonalProps {
 
 const PersonalDetails: React.FC<IPersonalProps> = ({ focus, setFocus }) => {
   const classes = useStyles();
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <Grid spacing={2} container className={classes.formGrid}>
@@ -85,7 +89,7 @@ const PersonalDetails: React.FC<IPersonalProps> = ({ focus, setFocus }) => {
           variant="outlined"
           id="password"
           name="password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           label="Password"
           fullWidth
           onFocus={() => setFocus("password")}
@@ -93,6 +97,18 @@ const PersonalDetails: React.FC<IPersonalProps> = ({ focus, setFocus }) => {
             startAdornment: (
               <InputAdornment position="start">
                 <LockIcon color={focus === "password" ? "inherit" : "action"} />
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment
+                position="end"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <IconButton
+                  color={focus === "password" ? "inherit" : "default"}
+                >
+                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </IconButton>
               </InputAdornment>
             )
           }}
@@ -104,7 +120,7 @@ const PersonalDetails: React.FC<IPersonalProps> = ({ focus, setFocus }) => {
           variant="outlined"
           id="confirm"
           name="confirm"
-          type="password"
+          type={showPassword ? "text" : "password"}
           label="Confirm Password"
           fullWidth
           onFocus={() => setFocus("confirm")}
@@ -112,6 +128,16 @@ const PersonalDetails: React.FC<IPersonalProps> = ({ focus, setFocus }) => {
             startAdornment: (
               <InputAdornment position="start">
                 <LockIcon color={focus === "confirm" ? "inherit" : "action"} />
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment
+                position="end"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <IconButton color={focus === "confirm" ? "inherit" : "default"}>
+                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </IconButton>
               </InputAdornment>
             )
           }}
