@@ -1,0 +1,124 @@
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import PersonIcon from "@material-ui/icons/Person";
+import EmailIcon from "@material-ui/icons/Email";
+import LockIcon from "@material-ui/icons/Lock";
+import { TextField } from "formik-material-ui";
+import { Field } from "formik";
+
+import useStyles from "../styles/form-content";
+
+interface IPersonalProps {
+  focus: string;
+  setFocus: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const PersonalDetails: React.FC<IPersonalProps> = ({ focus, setFocus }) => {
+  const classes = useStyles();
+
+  return (
+    <Grid spacing={2} container className={classes.formGrid}>
+      <Grid item xs={12} sm={6}>
+        <Field
+          component={TextField}
+          variant="outlined"
+          id="firstName"
+          name="firstName"
+          label="First Name"
+          fullWidth
+          autoFocus
+          onFocus={() => setFocus("firstName")}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <PersonIcon
+                  color={focus === "firstName" ? "inherit" : "action"}
+                />
+              </InputAdornment>
+            )
+          }}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <Field
+          component={TextField}
+          variant="outlined"
+          id="lastName"
+          name="lastName"
+          label="Last Name"
+          fullWidth
+          onFocus={() => setFocus("lastName")}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <PersonIcon
+                  color={focus === "lastName" ? "inherit" : "action"}
+                />
+              </InputAdornment>
+            )
+          }}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <Field
+          component={TextField}
+          variant="outlined"
+          id="email"
+          name="email"
+          type="email"
+          label="Email"
+          fullWidth
+          onFocus={() => setFocus("email")}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <EmailIcon color={focus === "email" ? "inherit" : "action"} />
+              </InputAdornment>
+            )
+          }}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <Field
+          component={TextField}
+          variant="outlined"
+          id="password"
+          name="password"
+          type="password"
+          label="Password"
+          fullWidth
+          onFocus={() => setFocus("password")}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <LockIcon color={focus === "password" ? "inherit" : "action"} />
+              </InputAdornment>
+            )
+          }}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <Field
+          component={TextField}
+          variant="outlined"
+          id="confirm"
+          name="confirm"
+          type="password"
+          label="Confirm Password"
+          fullWidth
+          onFocus={() => setFocus("confirm")}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <LockIcon color={focus === "confirm" ? "inherit" : "action"} />
+              </InputAdornment>
+            )
+          }}
+        />
+      </Grid>
+    </Grid>
+  );
+};
+
+export default PersonalDetails;
