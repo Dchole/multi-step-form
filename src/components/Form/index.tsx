@@ -20,6 +20,7 @@ const Form: React.FC = () => {
   const steps = [
     "Personal Details",
     "Business Details",
+    "Upload Image",
     "Details Confirmation"
   ];
 
@@ -42,9 +43,10 @@ const Form: React.FC = () => {
       formik.setFieldTouched(field);
     });
 
-    if (!Object.keys(formik.errors).some(field => fields.includes(field))) {
-      setCurrentStep(currentStep + 1);
-    }
+    setCurrentStep(currentStep + 1);
+    // if (!Object.keys(formik.errors).some(field => fields.includes(field))) {
+    //   setCurrentStep(currentStep + 1);
+    // }
   };
 
   const handlePrevStep = () => setCurrentStep(currentStep - 1);
@@ -54,13 +56,18 @@ const Form: React.FC = () => {
     setCurrentStep(0);
   };
 
+  const handleJumpToStep = (index: number) => {
+    setCurrentStep(index);
+  };
+
   return (
     <Container maxWidth="md" className={classes.root} component="main">
       <Paper className={classes.paper}>
         <StepperHead
-          stepIcon={currentStepIcon}
-          activeStep={currentStep}
           steps={steps}
+          activeStep={currentStep}
+          stepIcon={currentStepIcon}
+          handleJumpToStep={handleJumpToStep}
         />
         <StepperContent
           steps={steps.length}

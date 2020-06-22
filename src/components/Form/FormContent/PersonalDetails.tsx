@@ -103,6 +103,7 @@ const PersonalDetails: React.FC<IContentProps> = ({ focus, setFocus }) => {
                 <IconButton
                   tabIndex={-1}
                   color={focus === "password" ? "inherit" : "default"}
+                  aria-label="show password"
                 >
                   {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 </IconButton>
@@ -132,7 +133,10 @@ const PersonalDetails: React.FC<IContentProps> = ({ focus, setFocus }) => {
                 position="end"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                <IconButton color={focus === "confirm" ? "inherit" : "default"}>
+                <IconButton
+                  color={focus === "confirm" ? "inherit" : "default"}
+                  aria-label="show password"
+                >
                   {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 </IconButton>
               </InputAdornment>
