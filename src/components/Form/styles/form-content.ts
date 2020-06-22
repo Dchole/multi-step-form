@@ -5,6 +5,9 @@ const useStyles = makeStyles((theme: Theme) =>
     formGrid: {
       margin: `${theme.spacing(2)}px auto`,
       width: "100%"
+    },
+    input: {
+      display: "none"
     }
   })
 );

@@ -18,15 +18,11 @@ export interface IContentProps {
   setFocus: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export interface IStepIconProps extends StepIconProps {
-  reached: number[];
-}
-
-function CurrentStepIcon({ icon, reached }: IStepIconProps) {
+function CurrentStepIcon({ active, completed, icon }: StepIconProps) {
   const icons: { [index: string]: React.ReactElement } = {
-    1: <PersonPinIcon color={reached.includes(0) ? "primary" : "action"} />,
-    2: <BusinessIcon color={reached.includes(1) ? "primary" : "action"} />,
-    3: <CheckCircleIcon color={reached.includes(2) ? "primary" : "action"} />
+    1: <PersonPinIcon color={completed || active ? "primary" : "action"} />,
+    2: <BusinessIcon color={completed || active ? "primary" : "action"} />,
+    3: <CheckCircleIcon color={completed || active ? "primary" : "action"} />
   };
 
   return <div>{icons[String(icon)]}</div>;
@@ -55,7 +51,10 @@ const Form: React.FC = () => {
     "Details Confirmation"
   ];
 
-  const handleNextStep = () => setCurrentStep(currentStep + 1);
+  const handleNextStep = () => {
+    setCurrentStep(currentStep + 1);
+  };
+
   const handlePrevStep = () => setCurrentStep(currentStep - 1);
 
   return (

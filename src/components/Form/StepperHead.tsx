@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepButton from "@material-ui/core/StepButton";
 import StepLabel from "@material-ui/core/StepLabel";
 import useStyles from "./styles/stepper-head";
-import { IStepIconProps } from ".";
+import { StepIconProps } from "@material-ui/core";
 
 interface IStepperHeadProps {
-  stepIcon: (props: IStepIconProps) => JSX.Element;
+  stepIcon: (props: StepIconProps) => JSX.Element;
   activeStep: number;
   steps: string[];
 }
@@ -18,11 +18,6 @@ const StepperHead: React.FC<IStepperHeadProps> = ({
   steps
 }) => {
   const classes = useStyles();
-  const [reached, setReached] = useState<number[]>([]);
-
-  useEffect(() => {
-    setReached(r => [...new Set([...r, activeStep])]);
-  }, [activeStep]);
 
   return (
     <div className={classes.root}>
@@ -30,11 +25,7 @@ const StepperHead: React.FC<IStepperHeadProps> = ({
         {steps.map(label => (
           <Step key={label}>
             <StepButton>
-              <StepLabel
-                StepIconComponent={props => stepIcon({ ...props, reached })}
-              >
-                {label}
-              </StepLabel>
+              <StepLabel StepIconComponent={stepIcon}>{label}</StepLabel>
             </StepButton>
           </Step>
         ))}
