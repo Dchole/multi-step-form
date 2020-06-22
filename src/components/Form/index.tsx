@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 
@@ -16,6 +16,11 @@ import { currentStepIcon, getStepContent } from "./helpers";
 const Form: React.FC = () => {
   const classes = useStyles();
   const [currentStep, setCurrentStep] = useState(0);
+  const [completed, setCompleted] = useState<number[]>([]);
+
+  useEffect(() => {
+    setCompleted(c => [...new Set([...c, currentStep])]);
+  }, [currentStep]);
 
   const steps = [
     "Personal Details",
@@ -54,6 +59,7 @@ const Form: React.FC = () => {
   const handleReset = (formik: FormikProps<typeof initialValues>) => {
     formik.resetForm();
     setCurrentStep(0);
+    setCompleted([]);
   };
 
   const handleJumpToStep = (index: number) => {
@@ -65,6 +71,7 @@ const Form: React.FC = () => {
       <Paper className={classes.paper}>
         <StepperHead
           steps={steps}
+          completed={completed}
           activeStep={currentStep}
           stepIcon={currentStepIcon}
           handleJumpToStep={handleJumpToStep}

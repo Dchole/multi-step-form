@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepButton from "@material-ui/core/StepButton";
@@ -7,24 +7,21 @@ import useStyles from "./styles/stepper-head";
 import { StepIconProps } from "@material-ui/core";
 
 interface IStepperHeadProps {
-  stepIcon: (props: StepIconProps) => JSX.Element;
-  activeStep: number;
   steps: string[];
+  activeStep: number;
+  completed: number[];
   handleJumpToStep: (index: number) => void;
+  stepIcon: (props: StepIconProps) => JSX.Element;
 }
 
 const StepperHead: React.FC<IStepperHeadProps> = ({
   steps,
   stepIcon,
   activeStep,
+  completed,
   handleJumpToStep
 }) => {
   const classes = useStyles();
-  const [completed, setCompleted] = useState<number[]>([]);
-
-  useEffect(() => {
-    setCompleted(c => [...new Set([...c, activeStep])]);
-  }, [activeStep]);
 
   return (
     <div className={classes.root}>
