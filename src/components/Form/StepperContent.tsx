@@ -1,14 +1,17 @@
-import React, { useState, useReducer } from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Formik, Form, FormikProps } from "formik";
 
-import { initialValues, validationSchema } from "./FormContent/formikConfig";
+import {
+  initialValues,
+  validationSchema,
+  onSubmit
+} from "./FormContent/formikConfig";
 import useStyles from "./styles/stepper-content";
 import { IContentProps } from ".";
-import { formReducer } from "../formReducer";
 
 interface IStepperContent {
   steps: number;
@@ -31,12 +34,11 @@ const StepperContent: React.FC<IStepperContent> = ({
 }) => {
   const classes = useStyles();
   const [focus, setFocus] = useState("firstName");
-  const [state, dispatch] = useReducer(formReducer, initialValues);
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={values => dispatch({ type: "CONFIRM", payload: values })}
+      onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
       {formik => (

@@ -9,13 +9,9 @@ import { TextField } from "formik-material-ui";
 import { Field } from "formik";
 
 import useStyles from "../styles/form-content";
+import { IContentProps } from "..";
 
-interface IBusProps {
-  focus: string;
-  setFocus: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const BusinessDetails: React.FC<IBusProps> = ({ focus, setFocus }) => {
+const BusinessDetails: React.FC<IContentProps> = ({ focus, setFocus }) => {
   const classes = useStyles();
 
   return (

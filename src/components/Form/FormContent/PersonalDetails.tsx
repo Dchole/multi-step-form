@@ -11,13 +11,9 @@ import { TextField } from "formik-material-ui";
 import { Field } from "formik";
 
 import useStyles from "../styles/form-content";
+import { IContentProps } from "..";
 
-interface IPersonalProps {
-  focus: string;
-  setFocus: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const PersonalDetails: React.FC<IPersonalProps> = ({ focus, setFocus }) => {
+const PersonalDetails: React.FC<IContentProps> = ({ focus, setFocus }) => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
 
