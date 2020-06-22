@@ -18,6 +18,7 @@ interface IStepperContent {
   currentStep: number;
   handleNextStep: (formik: FormikProps<typeof initialValues>) => void;
   handlePrevStep: () => void;
+  handleReset: (formik: FormikProps<typeof initialValues>) => void;
 
   stepContent: (
     stepIndex: number,
@@ -30,7 +31,8 @@ const StepperContent: React.FC<IStepperContent> = ({
   stepContent,
   currentStep,
   handleNextStep,
-  handlePrevStep
+  handlePrevStep,
+  handleReset
 }) => {
   const classes = useStyles();
   const [focus, setFocus] = useState("firstName");
@@ -61,6 +63,7 @@ const StepperContent: React.FC<IStepperContent> = ({
                   variant="outlined"
                   color="primary"
                   className={classes.button}
+                  onClick={() => handleReset(formik)}
                 >
                   Reset
                 </Button>

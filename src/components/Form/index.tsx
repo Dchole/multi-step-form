@@ -83,6 +83,11 @@ const Form: React.FC = () => {
 
   const handlePrevStep = () => setCurrentStep(currentStep - 1);
 
+  const handleReset = (formik: FormikProps<typeof initialValues>) => {
+    formik.resetForm();
+    setCurrentStep(0);
+  };
+
   return (
     <Container maxWidth="md" className={classes.root} component="main">
       <Paper className={classes.paper}>
@@ -97,6 +102,7 @@ const Form: React.FC = () => {
           currentStep={currentStep}
           handlePrevStep={handlePrevStep}
           handleNextStep={handleNextStep}
+          handleReset={handleReset}
         />
       </Paper>
     </Container>
