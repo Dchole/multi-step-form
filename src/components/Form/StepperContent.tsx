@@ -11,7 +11,7 @@ import {
   onSubmit
 } from "./FormContent/formikConfig";
 import useStyles from "./styles/stepper-content";
-import { IContentProps } from ".";
+import { IContentProps } from "./helpers";
 
 interface IStepperContent {
   steps: number;

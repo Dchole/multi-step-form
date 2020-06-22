@@ -9,7 +9,7 @@ import { TextField } from "formik-material-ui";
 import { Field } from "formik";
 
 import useStyles from "../styles/form-content";
-import { IContentProps } from "..";
+import { IContentProps } from "../helpers";
 
 const BusinessDetails: React.FC<IContentProps> = ({ focus, setFocus }) => {
   const classes = useStyles();
