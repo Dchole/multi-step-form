@@ -1,12 +1,15 @@
 import { FormikHelpers } from "formik";
 import * as Yup from "yup";
 
-export const initialValues = {
+export const personalDetails = {
   firstName: "",
   lastName: "",
   email: "",
   password: "",
-  confirm: "",
+  confirm: ""
+};
+
+export const businessDetails = {
   brandName: "",
   businessEmail: "",
   website: "",
@@ -14,31 +17,14 @@ export const initialValues = {
   description: ""
 };
 
+export const initialValues = {
+  ...personalDetails,
+  ...businessDetails
+};
+
 export const onSubmit = (
-  values: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    confirm: string;
-    brandName: string;
-    businessEmail: string;
-    website: string;
-    location: string;
-    description: string;
-  },
-  actions: FormikHelpers<{
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    confirm: string;
-    brandName: string;
-    businessEmail: string;
-    website: string;
-    location: string;
-    description: string;
-  }>
+  values: typeof initialValues,
+  actions: FormikHelpers<typeof initialValues>
 ) => console.log({ values, actions });
 
 export const validationSchema = Yup.object({

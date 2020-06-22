@@ -12,6 +12,12 @@ import StepperContent from "./StepperContent";
 import PersonalDetails from "./FormContent/PersonalDetails";
 import BusinessDetails from "./FormContent/BusinessDetails";
 import Confirmation from "./FormContent/Confirmation";
+import { FormikProps } from "formik";
+import {
+  initialValues,
+  personalDetails,
+  businessDetails
+} from "./FormContent/formikConfig";
 
 export interface IContentProps {
   focus: string;
@@ -51,8 +57,28 @@ const Form: React.FC = () => {
     "Details Confirmation"
   ];
 
-  const handleNextStep = () => {
-    setCurrentStep(currentStep + 1);
+  const handleNextStep = (formik: FormikProps<typeof initialValues>) => {
+    let fields: string[] = [];
+
+    switch (currentStep) {
+      case 0:
+        fields = Object.keys(personalDetails);
+        break;
+      case 1:
+        fields = Object.keys(businessDetails);
+        break;
+      default:
+        fields = Object.keys(initialValues);
+        break;
+    }
+
+    fields.forEach(field => {
+      formik.setFieldTouched(field);
+    });
+
+    if (!Object.keys(formik.errors).some(field => fields.includes(field))) {
+      setCurrentStep(currentStep + 1);
+    }
   };
 
   const handlePrevStep = () => setCurrentStep(currentStep - 1);

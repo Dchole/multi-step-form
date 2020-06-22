@@ -1,22 +1,12 @@
-export interface IState {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirm: string;
-  brandName: string;
-  businessEmail: string;
-  website: string;
-  location: string;
-  description: string;
-}
+import { initialValues } from "./Form/FormContent/formikConfig";
+type TState = typeof initialValues;
 
 interface IAction {
   type: "CONFIRM" | "RESET";
-  payload: IState;
+  payload: TState;
 }
 
-export const formReducer = (state: IState, action: IAction) => {
+export const formReducer = (state: TState, action: IAction) => {
   switch (action.type) {
     case "CONFIRM":
       return { ...state, ...action.payload };

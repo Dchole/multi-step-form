@@ -105,6 +105,7 @@ const PersonalDetails: React.FC<IPersonalProps> = ({ focus, setFocus }) => {
                 onClick={() => setShowPassword(!showPassword)}
               >
                 <IconButton
+                  tabIndex={-1}
                   color={focus === "password" ? "inherit" : "default"}
                 >
                   {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
