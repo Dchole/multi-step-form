@@ -7,6 +7,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 import PersonalDetails from "./FormContent/PersonalDetails";
 import BusinessDetails from "./FormContent/BusinessDetails";
+import UploadImage from "./FormContent/UploadImage";
 import Confirmation from "./FormContent/Confirmation";
 
 export interface IContentProps {
@@ -35,7 +36,7 @@ export function getStepContent(
     case 1:
       return <BusinessDetails focus={focus} setFocus={setFocus} />;
     case 2:
-      return <Confirmation />;
+      return <UploadImage />;
     case 3:
       return <Confirmation />;
     default:

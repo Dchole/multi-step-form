@@ -31,7 +31,7 @@ const Form: React.FC = () => {
 
   const handleNextStep = (formik: FormikProps<typeof initialValues>) => {
     let fields: string[] = [];
-
+    console.log(formik.values);
     switch (currentStep) {
       case 0:
         fields = Object.keys(personalDetails);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, createContext } from "react";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -6,9 +6,10 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Formik, Form, FormikProps } from "formik";
 
 import {
+  images,
+  onSubmit,
   initialValues,
-  validationSchema,
-  onSubmit
+  validationSchema
 } from "./FormContent/formikConfig";
 import useStyles from "./styles/stepper-content";
 import { IContentProps } from "./helpers";
@@ -26,6 +27,16 @@ interface IStepperContent {
   ) => JSX.Element | undefined;
 }
 
+interface IContext {
+  uploads: typeof images;
+  setUploads: Function | React.Dispatch<React.SetStateAction<typeof images>>;
+}
+
+export const FormContext = createContext<IContext>({
+  uploads: images,
+  setUploads: () => {}
+});
+
 const StepperContent: React.FC<IStepperContent> = ({
   steps,
   stepContent,
@@ -36,6 +47,12 @@ const StepperContent: React.FC<IStepperContent> = ({
 }) => {
   const classes = useStyles();
   const [focus, setFocus] = useState("firstName");
+  const [uploads, setUploads] = useState(images);
+
+  const handleImagesUpload = (formik: FormikProps<typeof initialValues>) => {
+    formik.setFieldValue("profile", uploads.profile);
+    formik.setFieldValue("cover", uploads.cover);
+  };
 
   return (
     <Formik
@@ -45,7 +62,9 @@ const StepperContent: React.FC<IStepperContent> = ({
     >
       {formik => (
         <Form className={classes.root}>
-          {stepContent(currentStep, { focus, setFocus })}
+          <FormContext.Provider value={{ uploads, setUploads }}>
+            {stepContent(currentStep, { focus, setFocus })}
+          </FormContext.Provider>
           <div className={classes.formAction}>
             <IconButton
               color="primary"
@@ -82,7 +101,10 @@ const StepperContent: React.FC<IStepperContent> = ({
               className={
                 currentStep === steps - 1 ? undefined : classes.iconButton
               }
-              onClick={() => handleNextStep(formik)}
+              onClick={() => {
+                handleImagesUpload(formik);
+                handleNextStep(formik);
+              }}
               title="Next Step"
               aria-label="next"
               disabled={currentStep === steps - 1}

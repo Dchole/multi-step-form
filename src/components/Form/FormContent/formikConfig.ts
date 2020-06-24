@@ -17,9 +17,20 @@ export const businessDetails = {
   description: ""
 };
 
+interface IImages {
+  profile: string | ArrayBuffer | null;
+  cover: string | ArrayBuffer | null;
+}
+
+export const images: IImages = {
+  profile: "",
+  cover: ""
+};
+
 export const initialValues = {
   ...personalDetails,
-  ...businessDetails
+  ...businessDetails,
+  ...images
 };
 
 export const onSubmit = (
