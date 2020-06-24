@@ -19,21 +19,17 @@ const UploadImage = () => {
 
   const handleUpload = (
     event: React.ChangeEvent<HTMLInputElement>,
-    photo: typeof cover
+    photo: "profile" | "cover"
   ) => {
-    const file = event.target.files![0];
     const reader = new FileReader();
-    const url = reader.readAsDataURL(file);
 
     reader.onloadend = () => {
-      if (photo === cover) {
+      if (photo === "cover") {
         setUploads(upload => ({ ...upload, cover: reader.result }));
       } else {
         setUploads(upload => ({ ...upload, profile: reader.result }));
       }
     };
-
-    console.log({ file, reader, url });
   };
 
   const coverPic = cover || coverPhoto;
@@ -41,18 +37,17 @@ const UploadImage = () => {
 
   return (
     <Box mb={15} mx={2}>
-      <div aria-label="cover-photo" className={classes.cover}>
-        <img
-          src={String(coverPic)}
-          alt="Cover"
-          className={classes.coverImage}
-        />
+      <div
+        aria-label="cover-photo"
+        style={{ background: `url(${coverPic}) center/cover` }}
+        className={classes.cover}
+      >
         <input
           type="file"
           name="cover"
           accept="image/*"
           id="cover-upload"
-          onChange={e => handleUpload(e, cover)}
+          onChange={e => handleUpload(e, "cover")}
           className={classes.input}
         />
         <label htmlFor="cover-upload">
@@ -67,18 +62,17 @@ const UploadImage = () => {
           </Button>
         </label>
       </div>
-      <div aria-label="profile-photo" className={classes.profile}>
-        <img
-          src={String(profilePic)}
-          alt="upload"
-          className={classes.profileImage}
-        />
+      <div
+        aria-label="profile-photo"
+        style={{ background: `url(${profilePic}) center/cover` }}
+        className={classes.profile}
+      >
         <input
           type="file"
           name="profile"
           accept="image/*"
           id="profile-upload"
-          onChange={e => handleUpload(e, profile)}
+          onChange={e => handleUpload(e, "profile")}
           className={classes.input}
         />
         <label htmlFor="profile-upload">
