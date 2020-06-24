@@ -58,7 +58,7 @@ const UploadImage = () => {
             color="default"
             startIcon={<PhotoCameraIcon />}
           >
-            Upload Cover Photo
+            Edit Cover Photo
           </Button>
         </label>
       </div>

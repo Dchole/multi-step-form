@@ -40,16 +40,19 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: "50%",
       position: "absolute",
       transform: "translate(50%, -50%)",
-      border: "5px solid green"
+      border: "5px solid white",
+      boxShadow: theme.shadows[1]
     },
     profileCTA: {
       position: "absolute",
       bottom: 0,
       right: 0,
       transform: "translate(20%, 20%)",
+      boxShadow: theme.shadows[1],
       backgroundColor: theme.palette.grey[100],
 
       "&:hover": {
+        boxShadow: theme.shadows[2],
         backgroundColor: theme.palette.grey[300]
       }
     },
