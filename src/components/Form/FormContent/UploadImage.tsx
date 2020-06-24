@@ -21,7 +21,9 @@ const UploadImage = () => {
     event: React.ChangeEvent<HTMLInputElement>,
     photo: "profile" | "cover"
   ) => {
+    const file = event.target.files![0];
     const reader = new FileReader();
+    reader.readAsDataURL(file);
 
     reader.onloadend = () => {
       if (photo === "cover") {
@@ -58,7 +60,7 @@ const UploadImage = () => {
             color="default"
             startIcon={<PhotoCameraIcon />}
           >
-            Edit Cover Photo
+            Upload Cover Photo
           </Button>
         </label>
       </div>

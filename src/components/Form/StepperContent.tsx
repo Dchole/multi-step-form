@@ -29,11 +29,13 @@ interface IStepperContent {
 
 interface IContext {
   uploads: typeof images;
+  values: typeof initialValues;
   setUploads: Function | React.Dispatch<React.SetStateAction<typeof images>>;
 }
 
 export const FormContext = createContext<IContext>({
   uploads: images,
+  values: initialValues,
   setUploads: () => {}
 });
 
@@ -62,7 +64,9 @@ const StepperContent: React.FC<IStepperContent> = ({
     >
       {formik => (
         <Form className={classes.root}>
-          <FormContext.Provider value={{ uploads, setUploads }}>
+          <FormContext.Provider
+            value={{ uploads, values: formik.values, setUploads }}
+          >
             {stepContent(currentStep, { focus, setFocus })}
           </FormContext.Provider>
           <div className={classes.formAction}>

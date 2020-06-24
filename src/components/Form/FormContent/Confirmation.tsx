@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { FormContext } from "../StepperContent";
 
 const Confirmation = () => {
-  return <div></div>;
+  const { values } = useContext(FormContext);
+
+  return <div>{JSON.stringify(values)}</div>;
 };
 
 export default Confirmation;
