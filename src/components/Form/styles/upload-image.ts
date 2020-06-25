@@ -9,13 +9,6 @@ const useStyles = makeStyles((theme: Theme) =>
       transition: "ease 150ms",
       overflow: "hidden"
     },
-    coverImage: {
-      width: "100%",
-      position: "absolute",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%,-50%)"
-    },
     coverCTA: {
       position: "absolute",
       bottom: 0,
@@ -55,13 +48,6 @@ const useStyles = makeStyles((theme: Theme) =>
         boxShadow: theme.shadows[2],
         backgroundColor: theme.palette.grey[300]
       }
-    },
-    profileImage: {
-      width: "100%",
-      position: "absolute",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%,-50%)"
     }
   })
 );

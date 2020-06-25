@@ -86,7 +86,10 @@ const StepperContent: React.FC<IStepperContent> = ({
                   variant="outlined"
                   color="primary"
                   className={classes.button}
-                  onClick={() => handleReset(formik)}
+                  onClick={() => {
+                    setUploads(images);
+                    handleReset(formik);
+                  }}
                 >
                   Reset
                 </Button>

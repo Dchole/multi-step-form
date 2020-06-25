@@ -85,6 +85,7 @@ const BusinessDetails: React.FC<IContentProps> = ({ focus, setFocus }) => {
           id="location"
           name="location"
           label="Business Location"
+          placeholder="Country, City/Town"
           onFocus={() => setFocus("location")}
           fullWidth
           InputProps={{
