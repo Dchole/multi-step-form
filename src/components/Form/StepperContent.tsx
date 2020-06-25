@@ -1,8 +1,10 @@
 import React, { useState, createContext } from "react";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
+import Snackbar from "@material-ui/core/Snackbar";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import Alert from "@material-ui/lab/Alert";
 import { Formik, Form, FormikProps } from "formik";
 
 import {
@@ -50,78 +52,96 @@ const StepperContent: React.FC<IStepperContent> = ({
   const classes = useStyles();
   const [focus, setFocus] = useState("firstName");
   const [uploads, setUploads] = useState(images);
+  const [open, setOpen] = useState(false);
 
   const handleImagesUpload = (formik: FormikProps<typeof initialValues>) => {
     formik.setFieldValue("profile", uploads.profile);
     formik.setFieldValue("cover", uploads.cover);
   };
 
+  const handleClose = () => setOpen(false);
+
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
-    >
-      {formik => (
-        <Form className={classes.root}>
-          <FormContext.Provider
-            value={{ uploads, values: formik.values, setUploads }}
-          >
-            {stepContent(currentStep, { focus, setFocus })}
-          </FormContext.Provider>
-          <div className={classes.formAction}>
-            <IconButton
-              color="primary"
-              className={Boolean(currentStep) ? classes.iconButton : undefined}
-              onClick={handlePrevStep}
-              title="Previous Step"
-              aria-label="previous"
-              disabled={!Boolean(currentStep)}
+    <>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          Form Submitted SuccessFully{" "}
+          <span role="img" aria-label="smiley">
+            🙂
+          </span>
+        </Alert>
+      </Snackbar>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={(values, actions) => {
+          setOpen(true);
+          onSubmit(values, actions);
+        }}
+      >
+        {formik => (
+          <Form className={classes.root}>
+            <FormContext.Provider
+              value={{ uploads, values: formik.values, setUploads }}
             >
-              <ChevronLeftIcon />
-            </IconButton>
-            {currentStep === steps - 1 && (
-              <div>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  className={classes.button}
-                  onClick={() => {
-                    setUploads(images);
-                    handleReset(formik);
-                  }}
-                >
-                  Reset
-                </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                >
-                  Submit
-                </Button>
-              </div>
-            )}
-            <IconButton
-              color="primary"
-              className={
-                currentStep === steps - 1 ? undefined : classes.iconButton
-              }
-              onClick={() => {
-                handleImagesUpload(formik);
-                handleNextStep(formik);
-              }}
-              title="Next Step"
-              aria-label="next"
-              disabled={currentStep === steps - 1}
-            >
-              <ChevronRightIcon />
-            </IconButton>
-          </div>
-        </Form>
-      )}
-    </Formik>
+              {stepContent(currentStep, { focus, setFocus })}
+            </FormContext.Provider>
+            <div className={classes.formAction}>
+              <IconButton
+                color="primary"
+                className={
+                  Boolean(currentStep) ? classes.iconButton : undefined
+                }
+                onClick={handlePrevStep}
+                title="Previous Step"
+                aria-label="previous"
+                disabled={!Boolean(currentStep)}
+              >
+                <ChevronLeftIcon />
+              </IconButton>
+              {currentStep === steps - 1 && (
+                <div>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    className={classes.button}
+                    onClick={() => {
+                      setUploads(images);
+                      handleReset(formik);
+                    }}
+                  >
+                    Reset
+                  </Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                  >
+                    Submit
+                  </Button>
+                </div>
+              )}
+              <IconButton
+                color="primary"
+                className={
+                  currentStep === steps - 1 ? undefined : classes.iconButton
+                }
+                onClick={() => {
+                  handleImagesUpload(formik);
+                  handleNextStep(formik);
+                }}
+                title="Next Step"
+                aria-label="next"
+                disabled={currentStep === steps - 1}
+              >
+                <ChevronRightIcon />
+              </IconButton>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </>
   );
 };
 

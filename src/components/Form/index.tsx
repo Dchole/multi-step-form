@@ -48,9 +48,9 @@ const Form: React.FC = () => {
     });
 
     setCurrentStep(currentStep + 1);
-    // if (!Object.keys(formik.errors).some(field => fields.includes(field))) {
-    //   setCurrentStep(currentStep + 1);
-    // }
+    if (!Object.keys(formik.errors).some(field => fields.includes(field))) {
+      setCurrentStep(currentStep + 1);
+    }
   };
 
   const handlePrevStep = () => setCurrentStep(currentStep - 1);
